@@ -1,0 +1,43 @@
+﻿@page
+@model ParkNet.Pages.ParkingSpots.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ParkingSpot</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ParkingSpot.Floor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ParkingSpot.Floor.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ParkingSpot.Type)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ParkingSpot.Type)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ParkingSpot.Occupy)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ParkingSpot.Occupy)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ParkingSpot.Reserved)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ParkingSpot.Reserved)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.ParkingSpot.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

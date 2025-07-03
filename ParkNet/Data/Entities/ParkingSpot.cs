@@ -8,6 +8,7 @@ public class ParkingSpot
     public Floor Floor { get; set; }
     public int FloorId { get; set; }
     public VehicleType Type { get; set; }
+    public string Code { get; set; }
     public bool Occupy { get; set; }
     public bool Reserved { get; set; }
 

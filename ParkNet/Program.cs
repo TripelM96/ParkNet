@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ParkNet.Data;
+using ParkNet.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ParkNetDbContext>();
 builder.Services.AddRazorPages();
+
+// Dependency injection configuration
+builder.Services.AddScoped<BalanceTransactionsServices>();
+
 
 var app = builder.Build();
 

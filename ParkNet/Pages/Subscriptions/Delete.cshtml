@@ -1,0 +1,58 @@
+﻿@page
+@model ParkNet.Pages.Subscriptions.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Subscription</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subscription.User)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subscription.User.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subscription.ParkingLot)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subscription.ParkingLot.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subscription.SubscriptionType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subscription.SubscriptionType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subscription.IncialDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subscription.IncialDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subscription.EndTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subscription.EndTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subscription.Active)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subscription.Active)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Subscription.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

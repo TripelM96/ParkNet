@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParkNet.Data;
 
@@ -11,9 +12,11 @@ using ParkNet.Data;
 namespace ParkNet.Migrations
 {
     [DbContext(typeof(ParkNetDbContext))]
-    partial class ParkNetDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250702203625_DeleteTransactionTypeMig")]
+    partial class DeleteTransactionTypeMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -368,10 +371,6 @@ namespace ParkNet.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("FloorId")
                         .HasColumnType("int");
 
@@ -533,7 +532,7 @@ namespace ParkNet.Migrations
             modelBuilder.Entity("ParkNet.Data.Entities.ParkingSpot", b =>
                 {
                     b.HasOne("ParkNet.Data.Entities.Floor", "Floor")
-                        .WithMany("Spot")
+                        .WithMany()
                         .HasForeignKey("FloorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -558,11 +557,6 @@ namespace ParkNet.Migrations
                     b.Navigation("ParkingLot");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ParkNet.Data.Entities.Floor", b =>
-                {
-                    b.Navigation("Spot");
                 });
 #pragma warning restore 612, 618
         }

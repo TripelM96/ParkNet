@@ -13,20 +13,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.17" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Data\Repositories\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Models\" />
-    <Folder Include="Pages\BalanceTransactions\" />
-    <Folder Include="Pages\ParkingSpot\" />
-    <Folder Include="Pages\ParkingSessions\" />
-    <Folder Include="Pages\ParkingRates\" />
-    <Folder Include="Pages\ParkingLots\" />
-    <Folder Include="Pages\Subscriptions\" />
-    <Folder Include="Pages\Floors\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

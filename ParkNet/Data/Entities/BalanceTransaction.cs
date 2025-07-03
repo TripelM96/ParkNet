@@ -16,8 +16,7 @@ public class BalanceTransaction
     public DateTime Date { get; set; }
 
     [Column(TypeName = "decimal(10,2)")]
-    public decimal Ammount { get; set; }
-    public TransactionType TransactionType { get; set; }
+    public decimal Ammount { get; set; }    
     public string Description { get; set; }
 
 }

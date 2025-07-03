@@ -1,0 +1,55 @@
+﻿@page
+@model ParkNet.Pages.Subscriptions.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Subscription</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subscription.User)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subscription.User.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subscription.ParkingLot)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subscription.ParkingLot.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subscription.SubscriptionType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subscription.SubscriptionType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subscription.IncialDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subscription.IncialDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subscription.EndTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subscription.EndTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Subscription.Active)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Subscription.Active)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Subscription.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
