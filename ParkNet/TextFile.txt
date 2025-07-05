@@ -5,3 +5,5 @@ MC CC MM
 CCCC
 C C C C C
 MC MC CC
+
+Para trabalhar com admin e utilizidor usar authorize para admin e verificar como usar o authorize para perceber quem pode e nao pode 
