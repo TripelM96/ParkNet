@@ -38,7 +38,7 @@
 @foreach (var item in Model.Subscription) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
+                @Html.DisplayFor(modelItem => item.User.UserName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ParkingLot.Name)
@@ -51,10 +51,15 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EndTime)
-            </td>
+            </td>              
             <td>
                 @Html.DisplayFor(modelItem => item.Active)
-            </td>          
+            </td>   
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
         </tr>
 }
     </tbody>

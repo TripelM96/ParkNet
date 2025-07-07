@@ -35,18 +35,10 @@ namespace ParkNet.Pages.BalanceTransactions
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            // teste pra verificar se o utilizador está a null 
-            var userId = this.UserId;
-            if (string.IsNullOrEmpty(userId))
-            {
-                ModelState.AddModelError("", "Utilizador não autenticado.");
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}          
             
 
             BalanceTransaction.Date = DateTime.UtcNow;

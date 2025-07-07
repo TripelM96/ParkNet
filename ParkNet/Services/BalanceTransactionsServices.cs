@@ -29,10 +29,10 @@ public partial class BalanceTransactionsServices
 
         return balances.ToList();
     }
-    public async Task<decimal> GetBalanceAsync(string userId)
+    public async Task<decimal> GetBalanceAsync(string user)
     {
         return await _ctx.BalanceTransactions
-            .Where(m => m.UserId == userId)
+            .Where(m => m.UserId == user)
             .SumAsync(m => m.Ammount);
     }
     public async Task Add(List<BalanceTransaction> movements)

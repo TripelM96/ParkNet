@@ -10,7 +10,7 @@ using ParkNet.Data.Entities;
 
 namespace ParkNet.Pages.ParkingSpots
 {
-    public class IndexModel : PageModel
+    public class IndexModel : PageModelBase
     {
         private readonly ParkNet.Data.ParkNetDbContext _context;
 
@@ -22,7 +22,7 @@ namespace ParkNet.Pages.ParkingSpots
         public IList<ParkingSpot> ParkingSpot { get;set; } = default!;
 
         public async Task OnGetAsync()
-        {
+        {     
             ParkingSpot = await _context.ParkingSpots
                 .Include(p => p.Floor).ToListAsync();
         }

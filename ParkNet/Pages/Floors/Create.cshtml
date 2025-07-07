@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        @* <form method="post" enctype="multipart/form-data">
+         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="layoutFile">Importar layout (.txt)</label>
                 <input type="file" name="layoutFile" class="form-control" required />
@@ -23,9 +23,10 @@
             </div>
 
             <button type="submit" class="btn btn-success">Importar</button>
-        </form> *@
-        <form method="post">
+        </form> 
+        @* <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*
             <div class="form-group">
                 <label asp-for="Floor.Name" class="control-label"></label>
                 <input asp-for="Floor.Name" class="form-control" />
@@ -35,7 +36,7 @@
                 <label asp-for="Floor.Order" class="control-label"></label>
                 <input asp-for="Floor.Order" class="form-control" />
                 <span asp-validation-for="Floor.Order" class="text-danger"></span>
-            </div>
+            </div> *
             <div class="form-group">
                 <label asp-for="Floor.LayoutRaw" class="control-label"></label>
                 <input asp-for="Floor.LayoutRaw" class="form-control" />
@@ -44,11 +45,11 @@
             @* <div class="form-group">
                 <label asp-for="Floor.ParkingLotId" class="control-label"></label>
                 <select asp-for="Floor.ParkingLotId" class="form-control" asp-items="ViewBag.ParkingLotId"></select>
-            </div>  *@
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-        </form> 
+        </form>  *@
     </div>
 </div>
 

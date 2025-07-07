@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using ParkNet.Data.Entities.Enum;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Transactions;
 
@@ -10,6 +11,7 @@ public class BalanceTransaction
     public int Id { get; set; }
 
     public IdentityUser User { get; set; }
+    [Required]
     public string UserId { get; set; }
 
     [Column(TypeName = "Datetime2(0)")]

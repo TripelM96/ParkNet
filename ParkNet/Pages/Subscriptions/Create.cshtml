@@ -14,33 +14,28 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Subscription.UserId" class="control-label"></label>
-                <select asp-for="Subscription.UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Subscription.ParkingLotId" class="control-label"></label>
-                <select asp-for="Subscription.ParkingLotId" class ="form-control" asp-items="ViewBag.ParkingLotId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Subscription.SubscriptionType" class="control-label"></label>
-                <select asp-for="Subscription.SubscriptionType" class="form-control"></select>
+                <label asp-for="Subscription.SubscriptionType" class="control-label">Subscription Type</label>
+                <select asp-for="Subscription.SubscriptionType" asp-items="Model.SubscriptionTypeList" class="form-control">
+                    <option value="">-- Selecione --</option>
+                </select>
                 <span asp-validation-for="Subscription.SubscriptionType" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label for="Subscription.ParkingLotId">Parking Lot</label>
+                <select asp-for="Subscription.ParkingLotId" asp-items="Model.ParkingLotList" class="form-control">
+                    <option value="">-- Escolher parque --</option>
+                </select>
+            </div>          
             <div class="form-group">
                 <label asp-for="Subscription.IncialDate" class="control-label"></label>
                 <input asp-for="Subscription.IncialDate" class="form-control" />
                 <span asp-validation-for="Subscription.IncialDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+           @*  <div class="form-group">
                 <label asp-for="Subscription.EndTime" class="control-label"></label>
                 <input asp-for="Subscription.EndTime" class="form-control" />
                 <span asp-validation-for="Subscription.EndTime" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Subscription.Active" /> @Html.DisplayNameFor(model => model.Subscription.Active)
-                </label>
-            </div>
+            </div>   *@         
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -53,5 +48,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

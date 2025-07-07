@@ -44,10 +44,6 @@ namespace ParkNet.Pages.Floors
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
 
             _context.Attach(Floor).State = EntityState.Modified;
 

@@ -31,10 +31,6 @@ namespace ParkNet.Pages.ParkingSpots
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
 
             _context.ParkingSpots.Add(ParkingSpot);
             await _context.SaveChangesAsync();

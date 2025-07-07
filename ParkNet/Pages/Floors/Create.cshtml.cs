@@ -46,10 +46,10 @@ namespace ParkNet.Pages.Floors
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
             if (LayoutFile == null || LayoutFile.Length == 0)
             {
@@ -75,6 +75,11 @@ namespace ParkNet.Pages.Floors
             // Percorre cada piso
             for (int pisoIndex = 0; pisoIndex < pisosBrutos.Length; pisoIndex++)
             {
+                /* 
+                 * Environment.NewLine	A quebra de linha correta para o sistema operativo atual
+                 * .Split(Environment.NewLine, ...)    Divide o texto linha a linha
+                 *  RemoveEmptyEntries Ignora linhas em branco
+                */
                 var rawLines = pisosBrutos[pisoIndex]
                     .Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
                     .ToList();
@@ -110,7 +115,7 @@ namespace ParkNet.Pages.Floors
                         }
                     }
                 }
-                _context.Floors.Add(Floor);
+                _context.Floors.Add(floor);
             }
             await _context.SaveChangesAsync();
 
