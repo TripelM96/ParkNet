@@ -10,7 +10,7 @@ using ParkNet.Data.Entities;
 
 namespace ParkNet.Pages.ParkingSessions
 {
-    public class CreateModel : PageModel
+    public class CreateModel : PageModelBase
     {
         private readonly ParkNet.Data.ParkNetDbContext _context;
 
@@ -19,23 +19,42 @@ namespace ParkNet.Pages.ParkingSessions
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
         ViewData["ParkingSpotId"] = new SelectList(_context.ParkingSpots, "Id", "Id");
         ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+
+            AvailableSpots = await _context.ParkingSpots
+            .Where(s => !s.Occupy)
+            .Select(s => new SelectListItem
+            {
+                Value = s.Id.ToString(),
+                Text = $"{s.Code} ({s.Type})"
+            }).ToListAsync();
+
             return Page();
         }
 
         [BindProperty]
-        public ParkingSession ParkingSession { get; set; } = default!;
+        public ParkingSession ParkingSession { get; set; } 
+        public List<SelectListItem> AvailableSpots { get; set; }
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+           
+            ParkingSession.UserId = this.UserId;
+            ParkingSession.Entrada = DateTime.UtcNow;
+
+            // Marcar o lugar como ocupado
+            var spot = await _context.ParkingSpots.FindAsync(ParkingSession.ParkingSpotId);
+            if (spot == null || spot.Occupy)
             {
-                return Page();
+                ModelState.AddModelError("", "Lugar inválido ou já ocupado.");
+                return await OnGetAsync();
             }
+
+            spot.Occupy = true;
 
             _context.ParkingSessions.Add(ParkingSession);
             await _context.SaveChangesAsync();

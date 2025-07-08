@@ -1,4 +1,4 @@
-﻿@page
+﻿@page 
 @model ParkNet.Pages.ParkingSessions.IndexModel
 
 @{
@@ -32,29 +32,32 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.ParkingSession) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParkingSpot.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Entrada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Saida)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValorPago)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.ParkingSession)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParkingSpot.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Entrada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Saida)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorPago)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    
+                    <a asp-page="./Exit" asp-route-id="@item.Id">Exit</a>
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

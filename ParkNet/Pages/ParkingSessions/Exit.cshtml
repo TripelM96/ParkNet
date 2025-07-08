@@ -1,0 +1,12 @@
+﻿@page "{id:int}"
+@model ParkNet.Pages.ParkingSessions.ExitModel
+
+<h2>Finalizar Estacionamento</h2>
+
+<p>Lugar: @Model.ParkingSession.ParkingSpot.Code</p>
+<p>Entrada: @Model.ParkingSession.Entrada.ToString("g")</p>
+
+<form method="post">
+    <button class="btn btn-danger">Confirmar Saída</button>
+    <a asp-page="./Index" class="btn btn-secondary">Cancelar</a>
+</form>

@@ -12,11 +12,7 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ParkingSession.UserId" class="control-label"></label>
-                <select asp-for="ParkingSession.UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>           
             <div class="form-group">
                 <label asp-for="ParkingSession.ParkingSpotId" class="control-label"></label>
                 <select asp-for="ParkingSession.ParkingSpotId" class ="form-control" asp-items="ViewBag.ParkingSpotId"></select>
@@ -25,17 +21,8 @@
                 <label asp-for="ParkingSession.Entrada" class="control-label"></label>
                 <input asp-for="ParkingSession.Entrada" class="form-control" />
                 <span asp-validation-for="ParkingSession.Entrada" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ParkingSession.Saida" class="control-label"></label>
-                <input asp-for="ParkingSession.Saida" class="form-control" />
-                <span asp-validation-for="ParkingSession.Saida" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ParkingSession.ValorPago" class="control-label"></label>
-                <input asp-for="ParkingSession.ValorPago" class="form-control" />
-                <span asp-validation-for="ParkingSession.ValorPago" class="text-danger"></span>
-            </div>
+            </div>           
+         
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

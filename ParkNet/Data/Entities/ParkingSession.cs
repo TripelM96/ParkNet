@@ -6,7 +6,6 @@ namespace ParkNet.Data.Entities;
 public class ParkingSession
 {
     public int Id { get; set; }
-
     public IdentityUser User { get; set; }
     public string UserId { get; set; }
     public ParkingSpot ParkingSpot { get; set; }

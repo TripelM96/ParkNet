@@ -19,6 +19,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<BalanceTransactionsServices>();
 
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
