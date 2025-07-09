@@ -19,6 +19,6 @@ public class BalanceTransaction
 
     [Column(TypeName = "decimal(10,2)")]
     public decimal Ammount { get; set; }    
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
 }

@@ -10,8 +10,8 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
+ <table class="table">
+     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.ParkingSpot[0].Floor)
@@ -27,7 +27,7 @@
             </th>
             <th></th>
         </tr>
-    </thead>
+    </thead> 
     <tbody>
 @foreach (var item in Model.ParkingSpot) {
         <tr>
@@ -52,3 +52,4 @@
 }
     </tbody>
 </table>
+ 

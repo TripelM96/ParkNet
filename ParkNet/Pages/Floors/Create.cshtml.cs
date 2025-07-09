@@ -110,7 +110,8 @@ namespace ParkNet.Pages.Floors
                                 Code = code,
                                 Type = type,
                                 Occupy = false,
-                                Reserved = false
+                                Reserved = false,
+                                Floor = floor
                             });
                         }
                     }

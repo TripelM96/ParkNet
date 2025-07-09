@@ -10,7 +10,7 @@ using ParkNet.Data.Entities;
 
 namespace ParkNet.Pages.ParkingSpots
 {
-    public class CreateModel : PageModel
+    public class CreateModel : PageModelBase
     {
         private readonly ParkNet.Data.ParkNetDbContext _context;
 
@@ -21,7 +21,8 @@ namespace ParkNet.Pages.ParkingSpots
 
         public IActionResult OnGet()
         {
-        ViewData["FloorId"] = new SelectList(_context.Floors, "Id", "Id");
+         ViewData["FloorId"] = new SelectList(_context.Floors, "Id", "Id");
+            
             return Page();
         }
 
@@ -30,7 +31,7 @@ namespace ParkNet.Pages.ParkingSpots
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
-        {
+        {           
 
             _context.ParkingSpots.Add(ParkingSpot);
             await _context.SaveChangesAsync();

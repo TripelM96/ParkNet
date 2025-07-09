@@ -22,9 +22,12 @@ namespace ParkNet.Pages.ParkingSpots
         public IList<ParkingSpot> ParkingSpot { get;set; } = default!;
 
         public async Task OnGetAsync()
-        {     
+        {
             ParkingSpot = await _context.ParkingSpots
-                .Include(p => p.Floor).ToListAsync();
+             .Include(p => p.Floor)
+             .ThenInclude(f => f.ParkingLot)
+             .ToListAsync();
         }
+        
     }
 }
