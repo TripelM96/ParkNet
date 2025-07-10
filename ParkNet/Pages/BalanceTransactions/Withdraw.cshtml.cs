@@ -48,8 +48,14 @@ namespace ParkNet.Pages.BalanceTransactions
             var hasActiveSubscription = await _context.Subscriptions
             .AnyAsync(s => s.UserId == this.UserId);
 
-
-            _context.BalanceTransactions.Add(new BalanceTransaction
+            if (hasCarParked == true && hasActiveSubscription == false)
+            {
+                ModelState.AddModelError(string.Empty, "A viatura encontra se estacionada. Por favor proceda à saida para efetuar o levantamento");
+                return Page();
+            }
+           
+            
+            var transaction = (new BalanceTransaction
             {
                 UserId = this.UserId,
                 Ammount = -withdraw,
@@ -57,7 +63,7 @@ namespace ParkNet.Pages.BalanceTransactions
                 Description = "Withdraw"
             });
 
-            _context.BalanceTransactions.Add(BalanceTransaction);
+            _context.BalanceTransactions.Add(transaction);
             await _context.SaveChangesAsync();
             Balance = await _balanceServices.GetBalanceAsync(this.UserId);
 

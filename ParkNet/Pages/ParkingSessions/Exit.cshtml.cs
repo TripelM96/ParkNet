@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 using ParkNet.Data;
 using ParkNet.Data.Entities;
 
@@ -46,22 +47,56 @@ public class ExitModel : PageModelBase
             return NotFound();
 
         session.Saida = DateTime.UtcNow;
-        var duracao = session.Saida.Value - session.Entrada;
-        var precoPorMinuto = 0.05m;
-
-        // para testes 
-        //session.Entrada = session.Entrada.AddMinutes(-90);
-        session.ValorPago = Math.Round((decimal)duracao.TotalMinutes * precoPorMinuto, 2);
-
         session.ParkingSpot.Occupy = false;
 
-        _context.BalanceTransactions.Add(new BalanceTransaction
+        // Obter subscrição ativa
+        var subscription = await _context.Subscriptions
+            .Where(s => s.UserId == this.UserId && s.Active)
+            .OrderByDescending(s => s.EndTime)
+            .FirstOrDefaultAsync();
+
+        var hasValidSubscription = subscription != null &&
+                                subscription.IncialDate <= DateTime.UtcNow &&
+                                subscription.EndTime >= DateTime.UtcNow;
+
+
+        if (hasValidSubscription)
         {
-            UserId = session.UserId,
-            Ammount = -session.ValorPago.Value,
-            Date = DateTime.UtcNow,
-            Description = $"Estacionamento em {session.ParkingSpot.Code}"
-        });
+            // Subscrição válida: não paga e lugar reservado
+            session.ValorPago = 0.0m;
+            session.ParkingSpot.Reserved = true;
+            session.ParkingSpot.ReservedForUserId = this.UserId;
+            
+        }        
+        else
+        {
+            var duracao = session.Saida.Value - session.Entrada;
+            var precoPorMinuto = 0.05m;
+
+            // para testes 
+            //session.Entrada = session.Entrada.AddMinutes(-30);
+            session.ValorPago = Math.Round((decimal)duracao.TotalMinutes * precoPorMinuto, 2);
+
+
+            _context.BalanceTransactions.Add(new BalanceTransaction
+            {
+                UserId = session.UserId,
+                Ammount = -session.ValorPago.Value,
+                Date = DateTime.UtcNow,
+                Description = $"Estacionamento em {session.ParkingSpot.Code}"
+            });
+
+
+            // Se o lugar estava reservado para este utilizador, mas a subscrição expirou, remover a reserva
+            if (session.ParkingSpot.Reserved &&
+             session.ParkingSpot.ReservedForUserId == this.UserId)
+            {
+                session.ParkingSpot.Reserved = false;
+                session.ParkingSpot.ReservedForUserId = this.UserId;
+
+            }
+        }
+    
 
         await _context.SaveChangesAsync();
 

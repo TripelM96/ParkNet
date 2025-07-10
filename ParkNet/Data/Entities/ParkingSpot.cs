@@ -11,5 +11,6 @@ public class ParkingSpot
     public string Code { get; set; }
     public bool Occupy { get; set; }
     public bool Reserved { get; set; }
+    public string ReservedForUserId { get; set; }
 
 }

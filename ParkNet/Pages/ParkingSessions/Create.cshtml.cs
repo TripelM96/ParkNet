@@ -21,11 +21,11 @@ namespace ParkNet.Pages.ParkingSessions
 
         public async Task<IActionResult> OnGetAsync()
         {
-        ViewData["ParkingSpotId"] = new SelectList(_context.ParkingSpots, "Id", "Id");
-        ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["ParkingSpotId"] = new SelectList(_context.ParkingSpots, "Id", "Id");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
 
             AvailableSpots = await _context.ParkingSpots
-            .Where(s => !s.Occupy)
+            .Where(s => !s.Occupy && (!s.Reserved || (s.Reserved && s.ReservedForUserId == this.UserId)))
             .Select(s => new SelectListItem
             {
                 Value = s.Id.ToString(),
@@ -36,13 +36,14 @@ namespace ParkNet.Pages.ParkingSessions
         }
 
         [BindProperty]
-        public ParkingSession ParkingSession { get; set; } 
+        public ParkingSession ParkingSession { get; set; }
         public List<SelectListItem> AvailableSpots { get; set; }
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-           
+
+
             ParkingSession.UserId = this.UserId;
             ParkingSession.Entrada = DateTime.UtcNow;
 
@@ -54,6 +55,31 @@ namespace ParkNet.Pages.ParkingSessions
                 return await OnGetAsync();
             }
 
+            if (spot.Reserved && spot.ReservedForUserId != this.UserId)
+            {
+                ModelState.AddModelError("", "Lugar Reservado.");
+                return await OnGetAsync();
+            }
+
+            if (spot.Reserved && spot.ReservedForUserId == this.UserId)
+            {
+                var subscription = await _context.Subscriptions
+                    .Where(s => s.UserId == this.UserId && s.Active)
+                    .OrderByDescending(s => s.EndTime)
+                    .FirstOrDefaultAsync();
+
+                var isValid = subscription != null &&
+                      subscription.IncialDate <= DateTime.UtcNow &&
+                      subscription.EndTime >= DateTime.UtcNow;
+
+                if (!isValid)
+                {
+                    ModelState.AddModelError("", "A sua subscrição expirou. Lugar reservado não disponível.");
+                    return await OnGetAsync();
+                }
+
+                
+            }
             spot.Occupy = true;
 
             _context.ParkingSessions.Add(ParkingSession);
