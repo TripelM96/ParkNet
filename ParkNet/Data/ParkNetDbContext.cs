@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ParkNet.Data.Entities;
+using System.Reflection.Emit;
 
 namespace ParkNet.Data;
 
@@ -16,5 +18,17 @@ public class ParkNetDbContext : IdentityDbContext
     public ParkNetDbContext(DbContextOptions<ParkNetDbContext> options)
         : base(options)
     {
+    }
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        // Add addtional EF configurations using Fluent API
+
+        builder.Entity<ParkingSpot>()
+     .HasOne<IdentityUser>(p => p.ReservedForUser)
+     .WithMany()
+     .HasForeignKey(p => p.ReservedForUserId)
+     .OnDelete(DeleteBehavior.SetNull);
     }
 }

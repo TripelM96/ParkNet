@@ -61,24 +61,24 @@ namespace ParkNet.Pages.ParkingSessions
                 return await OnGetAsync();
             }
 
-            if (spot.Reserved && spot.ReservedForUserId == this.UserId)
-            {
-                var subscription = await _context.Subscriptions
-                    .Where(s => s.UserId == this.UserId && s.Active)
-                    .OrderByDescending(s => s.EndTime)
+            var subscription = await _context.Subscriptions
+                    .Where(s => s.UserId == this.UserId &&
+                           s.Active &&
+                           s.IncialDate <= DateTime.UtcNow &&
+                           s.EndTime >= DateTime.UtcNow)
                     .FirstOrDefaultAsync();
 
-                var isValid = subscription != null &&
-                      subscription.IncialDate <= DateTime.UtcNow &&
-                      subscription.EndTime >= DateTime.UtcNow;
+            if (spot.Reserved && spot.ReservedForUserId == this.UserId)
+            {               
+                var hasValidSubscription = subscription != null;
 
-                if (!isValid)
+                if (!hasValidSubscription)
                 {
                     ModelState.AddModelError("", "A sua subscrição expirou. Lugar reservado não disponível.");
                     return await OnGetAsync();
                 }
 
-                
+
             }
             spot.Occupy = true;
 

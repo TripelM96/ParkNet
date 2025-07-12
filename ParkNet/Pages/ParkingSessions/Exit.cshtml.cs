@@ -92,7 +92,7 @@ public class ExitModel : PageModelBase
              session.ParkingSpot.ReservedForUserId == this.UserId)
             {
                 session.ParkingSpot.Reserved = false;
-                session.ParkingSpot.ReservedForUserId = this.UserId;
+                session.ParkingSpot.ReservedForUserId = null;
 
             }
         }

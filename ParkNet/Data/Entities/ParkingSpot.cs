@@ -1,4 +1,5 @@
-﻿using ParkNet.Data.Entities.Enum;
+﻿using Microsoft.AspNetCore.Identity;
+using ParkNet.Data.Entities.Enum;
 
 namespace ParkNet.Data.Entities;
 
@@ -11,6 +12,8 @@ public class ParkingSpot
     public string Code { get; set; }
     public bool Occupy { get; set; }
     public bool Reserved { get; set; }
-    public string ReservedForUserId { get; set; }
+    public string? ReservedForUserId { get; set; }
+    public IdentityUser? ReservedForUser { get; set; }
+
 
 }
